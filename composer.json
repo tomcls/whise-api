@@ -1,0 +1,6 @@
+{
+    "require": {
+        "fw4/whise-api": "^1.4",
+        "vlucas/phpdotenv": "^5.4"
+    }
+}
