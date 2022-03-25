@@ -7,4 +7,4 @@ docker build --file="./srv/fpm/Dockerfile"  --build-arg environment=${env} -t wh
 
 docker run --name  whise-fpm \
      -v ${APP_ROOT}:/var/www/html \
-     -d  whise-api/fpm
+     -d --restart always  whise-api/fpm

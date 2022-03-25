@@ -10,6 +10,6 @@ docker run   --name whise-nginx \
 -p  8085:80 \
 -v  $APP_ROOT:/usr/share/nginx/html \
 -v  $APP_ROOT/srv/nginx/sites-available/default.conf:/etc/nginx/conf.d/default.conf \
--d whise/nginx
+-d --restart always whise/nginx
 
 
