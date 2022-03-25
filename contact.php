@@ -24,7 +24,7 @@ if($payload) {
 try {
     $accessToken = $api->getAccessToken();
 } catch (\Throwable $th) {
-    $accessToken = $api->requestAccessToken($_ENV['USER'], $_ENV['PWD']);
+    $accessToken = $api->requestAccessToken($_ENV['WHISE_USER'], $_ENV['WHISE_PWD']);
     $api->setAccessToken($accessToken);
 }
 try {
