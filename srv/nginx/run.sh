@@ -1,9 +1,9 @@
 #!/bin/bash
 
-APP_ROOT=~/www/whise-api
+APP_ROOT=/data/www/whise-api
 
 docker rm -f whise-nginx
-docker build --file=${APP_ROOT}/srv/nginx/Dockerfile  --build-arg environment=${ENVIRONMENT} -t whise/nginx .
+docker build --file=$APP_ROOT/srv/nginx/Dockerfile  --build-arg environment=${ENVIRONMENT} -t whise/nginx .
 
 docker run   --name whise-nginx \
 --link whise-fpm \

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_ROOT=~/www/whise-api
+APP_ROOT=/data/www/whise-api
 
 docker rm -f whise-fpm
 docker build --file="./srv/fpm/Dockerfile"  --build-arg environment=${env} -t whise-api/fpm .
