@@ -1,7 +1,7 @@
 //<script src="https://jam.itcl.io/wp-content/uploads/jquery-3.6.0.min.js"></script>
 const lang = "fr-BE";
 const officeId = '2045';
-let notifyApiUri = "http://whise-api.itcl.io";
+let notifyApiUri = "https://whise-api.itcl.io";
 
 function contactController() {
     
