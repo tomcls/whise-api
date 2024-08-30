@@ -30,12 +30,14 @@ try {
 }
 $estates = [];
 $activities = [];
+$typedActivities = [];
 try {
       $clientToken = $api->requestClientToken(1061,2045);
       $api->setAccessToken($clientToken);
       if($username && $password) {
         if($estateId) {
           $activities = $api->activities()->calendars(["EstateId"=> $estateId]);
+          
           $typedActivities = $api->activities()->histories(["EstateId"=> $estateId]);
         } else {
           $estates = $api->estates()->owned()->list($username,$password);
@@ -73,7 +75,7 @@ try {
 <header class="bg-white">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
     <div class="flex lg:flex-1">
-      <a href="#" class="-m-1.5 p-1.5">
+      <a href="https://www.jamproperties.be" class="-m-1.5 p-1.5">
         
         <img class="h-8 w-auto" src="https://www.jamproperties.be/wp-content/uploads/2022/02/cropped-logo.png" alt="">
       </a>
@@ -134,28 +136,29 @@ try {
 <?php
  
 
- if($estateId):
-  
-  if($activities->count()):
+ if($estateId):?>
+  <h2 class="font-bold text-xl py-3">Historique</h2>
+  <?php
+  if($typedActivities && $typedActivities->count()):
     ?>
-    <h2 class="font-bold text-xl py-3">Historique</h2>
+    
     <ul role="list" class=" space-y-2 gap-y-2">
    <?php 
-   foreach ($typedActivities as $key => $activity): ?>
+   foreach ($typedActivities as  $typedActivity): ?>
       <li class="flex justify-between gap-x-6 py-5 border rounded-md border-slate-200 px-2 mt-2">
         <div class="flex min-w-0 gap-x-4">
           
           <div class="min-w-0 flex-auto">
-            <p class="text-sm font-semibold leading-7 text-gray-900">#: <?=$activity->categoryId .' '.$activity->category?></p>
+            <p class="text-sm font-semibold leading-7 text-gray-900">#: <?=$typedActivity->categoryId .' '.$typedActivity->category ?? 'muh' ?></p>
             <div class="flex flex-col ">
-            <p class="mt-1 truncate text-sm leading-7 text-gray-700 font-bold"><?=$activity->subject ?? $activity->message?></p>
-            <p class="mt-1 truncate text-sm leading-7 text-gray-500"><?=$activity->message?></p>
+            <p class="mt-1 truncate text-sm leading-7 text-gray-700 font-bold"><?=$typedActivity->subject ?? $typedActivity->message ?? 'hum'?></p>
+            <p class="mt-1 truncate text-sm leading-7 text-gray-500"><?=$typedActivity->message?? 'hum'?></p>
             </div>
           </div>
         </div>
        <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
        <p class="mt-1 text-xs leading-10 text-gray-500">
-             <time datetime="<?= $activity->dateTime->format('d-m-Y')?>"><?= $activity->dateTime->format('d-m-Y')?></time>
+             <time datetime="<?= $typedActivity->dateTime->format('d-m-Y')?>"><?= $typedActivity->dateTime->format('d-m-Y')?></time>
             </p>
           
         </div>
@@ -164,6 +167,12 @@ try {
     endforeach;
     ?>
     </ul>
+    <?php
+  else:?>
+    <h2 class="font-bold text-xl py-3">Aucun historique trouvé</h2>
+ <?php endif;
+  if($activities  && $activities->count()):
+    ?>
     <h2 class="font-bold text-xl py-3">Activitées</h2>
     <ul role="list" class=" space-y-2 gap-y-2">
    <?php 
@@ -191,7 +200,9 @@ try {
     ?>
     </ul>
     <?php
-  endif;
+  else: ?>
+    <h2 class="font-bold text-xl py-3">Aucune activité trouvée</h2>
+ <?php endif;
  else:
   if($estates->count()):?>
     <ul role="list" class=" space-y-2 gap-y-2">
