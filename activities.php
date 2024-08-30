@@ -47,7 +47,6 @@ try {
               $error_text = "Aucun bien trouvé";
             }
           } catch (\Throwable $th) {
-           var_dump($th->getMessage());
             $error_text = "Nom de l'utilisateur et/ou le mot de passe incorrecte";
           }
         }
