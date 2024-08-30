@@ -5,7 +5,7 @@ $username = $_POST['username'] ?? $_SESSION['username'] ?? null;
 $password = $_POST['password'] ?? $_SESSION['password'] ?? null;
 $estateId = $_GET['id'] ?? null;
 $logout = $_GET['logout'] ?? false;
-
+$error_text = null;
 use Whise\Api\WhiseApi;
 use Dotenv\Dotenv;
 $api = new WhiseApi();
@@ -34,18 +34,35 @@ try {
       $clientToken = $api->requestClientToken(1061,2045);
       $api->setAccessToken($clientToken);
       if($username && $password) {
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
+        var_dump('c');
         if($estateId) {
+          var_dump('d');
           $activities = $api->activities()->calendars(["EstateId"=> $estateId]);
           $typedActivities = $api->activities()->histories(["EstateId"=> $estateId]);
         } else {
           $estates = $api->estates()->owned()->list($username,$password);
+          try {
+            if($estates && $estates->count()) {
+              $_SESSION['username'] = $username;
+              $_SESSION['password'] = $password;
+              var_dump('a');
+            } else {
+              var_dump('e');
+              $error_text = "Aucun bien trouvé";
+            }
+          } catch (\Throwable $th) {
+           var_dump($th->getMessage());
+            $error_text = "Nom de l'utilisateur et/ou le mot de passe incorrecte";
+          }
         }
       }
    
 } catch (Exception $e) {
-    var_dump($e->getMessage());
+  var_dump('b');
+    unset($_SESSION['username']);
+    unset($_SESSION['password']);
+    $username = null;
+    $password = null;
 }
 
 ?>
@@ -107,7 +124,7 @@ try {
           <input id="password" name="password" type="password" autocomplete="current-password" required value="<?=$password?>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6">
         </div>
       </div>
-
+      <p class="font-bold text-sm text-red-700"><?=$error_text?>  </p>
       <div>
         <button type="submit" class="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">Connexion</button>
       </div>
