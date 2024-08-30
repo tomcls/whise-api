@@ -34,9 +34,7 @@ try {
       $clientToken = $api->requestClientToken(1061,2045);
       $api->setAccessToken($clientToken);
       if($username && $password) {
-        var_dump('c');
         if($estateId) {
-          var_dump('d');
           $activities = $api->activities()->calendars(["EstateId"=> $estateId]);
           $typedActivities = $api->activities()->histories(["EstateId"=> $estateId]);
         } else {
@@ -45,9 +43,7 @@ try {
             if($estates && $estates->count()) {
               $_SESSION['username'] = $username;
               $_SESSION['password'] = $password;
-              var_dump('a');
             } else {
-              var_dump('e');
               $error_text = "Aucun bien trouvé";
             }
           } catch (\Throwable $th) {
@@ -58,7 +54,6 @@ try {
       }
    
 } catch (Exception $e) {
-  var_dump('b');
     unset($_SESSION['username']);
     unset($_SESSION['password']);
     $username = null;
