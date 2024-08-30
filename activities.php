@@ -149,10 +149,10 @@ try {
         <div class="flex min-w-0 gap-x-4">
           
           <div class="min-w-0 flex-auto">
-            <p class="text-sm font-semibold leading-7 text-gray-900">#: <?=$typedActivity->categoryId .' '.$typedActivity->category ?? 'muh' ?></p>
+            <p class="text-sm font-semibold leading-7 text-gray-900">#: <?=$typedActivity->categoryId .' '.$typedActivity->category ?? '' ?></p>
             <div class="flex flex-col ">
-            <p class="mt-1 truncate text-sm leading-7 text-gray-700 font-bold"><?=$typedActivity->subject ?? $typedActivity->message ?? 'hum'?></p>
-            <p class="mt-1 truncate text-sm leading-7 text-gray-500"><?=$typedActivity->message?? 'hum'?></p>
+            <p class="mt-1 truncate text-sm leading-7 text-gray-700 font-bold"><?=$typedActivity->subject ?? $typedActivity->message ?? ' - '?></p>
+            <p class="mt-1 truncate text-sm leading-7 text-gray-500"><?=$typedActivity->message ?? ' - '?></p>
             </div>
           </div>
         </div>
