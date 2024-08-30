@@ -152,7 +152,7 @@ try {
             <p class="text-sm font-semibold leading-7 text-gray-900">#: <?=$typedActivity->categoryId .' '.$typedActivity->category ?? '' ?></p>
             <div class="flex flex-col ">
             <p class="mt-1 truncate text-sm leading-7 text-gray-700 font-bold"><?=$typedActivity->subject ?? $typedActivity->message ?? ' - '?></p>
-            <p class="mt-1 truncate text-sm leading-7 text-gray-500"><?=$typedActivity->message ?? ''?></p>
+            <p class="mt-1  text-sm leading-7 text-gray-500"><?=$typedActivity->message ?? ''?></p>
             </div>
           </div>
         </div>
