@@ -71,7 +71,7 @@ try {
     <div class="hidden lg:flex lg:gap-x-12">
       <?php 
       if($estateId && !empty($_SESSION['username'])): ?>
-        <a href="/index" class="text-sm font-semibold leading-6 text-orange-700">Liste de vos biens</a>
+        <a href="./activities.php" class="text-sm font-semibold leading-6 text-orange-700">Liste de vos biens</a>
      <?php endif;?>
       
     </div>
@@ -90,7 +90,7 @@ try {
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="./index" method="POST">
+    <form class="space-y-6" action="./activities.php" method="POST">
       <div>
         <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nom d'utilisateur</label>
         <div class="mt-2">
